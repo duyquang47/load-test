@@ -25,7 +25,8 @@ namespace loadbalancer_simpleapp_csharp.Controllers
             }
             var list = (List<Int128>)[0, 1, 2, 3, 4, 5];
             var output = Recursive(list, n);
-            return Results.Ok(string.Join(",", output.GetRange(0, 10000)) + "...");
+            var ostr = output.Count > 10000 ? string.Join(",", output.GetRange(0, 10000)) + "..." : string.Join(",", output);
+            return Results.Ok(ostr);
         }
 
         public static Int128 Factorial(Int128 n)
