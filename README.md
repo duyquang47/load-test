@@ -6,6 +6,8 @@ Original work: [SimpleApp (Node.JS)](https://github.com/jerapiblaze/loadbalancer
 
 ## API list
 
+App listens on port `8080` (fixed).
+
 | Method | Endpoint | Parameters | Resource bond | Description |
 |:-------|:---------|:-----------|:--------------|:------------|
 | GET    | `/` | None | None | Return string `Hello world`.|
