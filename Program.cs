@@ -28,6 +28,11 @@ namespace loadbalancer_simpleapp_csharp
 
             app.MapControllers();
 
+            app.MapGet("/", () =>
+            {
+                return "Hello World!";
+            });
+
             app.Run();
         }
     }
