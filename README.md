@@ -4,6 +4,8 @@ A simple app to drain servers' resources, switching from Node.JS to C# for bette
 
 Original work: [SimpleApp (Node.JS)](https://github.com/jerapiblaze/loadbalancer-appication)
 
+Docker Hub: [SimpleApp (C#)](https://hub.docker.com/r/jerapiblannett/loadbalancersimpleappcsharp)
+
 ## API list
 
 App listens on port `8080` (fixed).
