@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>loadbalancer_simpleapp_csharp</RootNamespace>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-	<ThreadPoolMinThreads>8</ThreadPoolMinThreads>
+	<ThreadPoolMinThreads>256</ThreadPoolMinThreads>
     <DockerfileContext>.</DockerfileContext>
   </PropertyGroup>
 

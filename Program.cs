@@ -5,6 +5,13 @@ namespace loadbalancer_simpleapp_csharp
     {
         public static void Main(string[] args)
         {
+            var t = ThreadPool.SetMinThreads(512, 256);
+
+            if (t == false)
+            {
+                Console.WriteLine("Cannot config theads manually!!!");
+            }
+
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
