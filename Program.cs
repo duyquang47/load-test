@@ -9,7 +9,7 @@ namespace loadbalancer_simpleapp_csharp
 
             if (t == false)
             {
-                Console.WriteLine("Cannot config theads manually!!!");
+                Console.WriteLine("Cannot config threads manually!!!");
             }
 
             var builder = WebApplication.CreateBuilder(args);
