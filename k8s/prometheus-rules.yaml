@@ -1,0 +1,61 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-rules
+  namespace: monitoring
+data:
+  alerts.yml: |
+    groups:
+    # Pod/Container Alerts Group
+    - name: pod_alerts
+      rules:
+      - alert: PodHighCPUUsage
+        expr: sum(rate(container_cpu_usage_seconds_total{container!=""}[5m])) by (pod, container) * 100 > 40
+        for: 1m
+        labels:
+          severity: warning
+          alert_type: pod
+          component: container
+        annotations:
+          summary: "[POD] High CPU usage detected"
+          description: "Container {{ $labels.container }} in pod {{ $labels.pod }} has CPU usage above 40%"
+          namespace: "{{ $labels.namespace }}"
+
+      - alert: PodHighMemoryUsage
+        expr: (container_memory_usage_bytes{container!=""} / container_spec_memory_limit_bytes{container!=""} * 100) > 80
+        for: 1m
+        labels:
+          severity: warning
+          alert_type: pod
+          component: container
+        annotations:
+          summary: "[POD] High memory usage detected"
+          description: "Container {{ $labels.container }} in pod {{ $labels.pod }} has memory usage above 80%"
+          namespace: "{{ $labels.namespace }}"
+
+    # Node Alerts Group
+    - name: node_alerts
+      rules:
+      - alert: NodeHighCPUUsage
+        expr: 100 - (avg by(instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 40
+        for: 1m
+        labels:
+          severity: warning
+          alert_type: node
+          component: system
+        annotations:
+          summary: "[NODE] High CPU usage"
+          description: "Node {{ $labels.instance }} has CPU usage above 40%"
+          node_name: "{{ $labels.instance }}"
+
+      - alert: NodeHighMemoryUsage
+        expr: (node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes * 100 > 80
+        for: 1m
+        labels:
+          severity: warning
+          alert_type: node
+          component: system
+        annotations:
+          summary: "[NODE] High memory usage"
+          description: "Node {{ $labels.instance }} has memory usage above 80%"
+          node_name: "{{ $labels.instance }}"
